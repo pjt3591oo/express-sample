@@ -18,4 +18,13 @@ router.get('/save', async (req, res) => {
   return res.json(rows);
 })
 
+router.get('/env', (req, res) => {
+  return res.json({
+    DB_HOST: process.env.DB_HOST,
+    DB_PASSWORD: process.env.DB_PASSWORD,
+    DB_USER: process.env.DB_USER,
+    DB_DATABASE: process.env.DB_DATABASE,
+  });
+})
+
 module.exports = router;

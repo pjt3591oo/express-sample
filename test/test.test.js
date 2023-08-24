@@ -5,6 +5,6 @@ describe("Api Test", () => {
   test("first test", async () => {
       const response = await request(app).get("/users");
 
-      expect(response.status).toBe(201);
+      expect(response.status).toBe(202);
   });
 });

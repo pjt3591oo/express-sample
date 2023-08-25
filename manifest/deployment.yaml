@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: test-deployment   # deployment의 이름
+  labels:
+    app: test-deployment  # deployment의 라벨
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: test-deployment # replicaset이 관리할 pod 라벨
+  template:    # 하위에 pod 정보 설정
+    metadata:
+      labels:
+        app: test-deployment # pod의 라벨
+    spec: # 컨테이너 설정
+      containers:
+      - name: test-deployment
+        image: express-sample.kr.ncr.ntruss.com/express-sample:latest
+        ports:
+        - containerPort: 3000
+      imagePullSecrets:
+      - name: regcred
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: test-svc
+spec:
+  type: LoadBalancer # ClusterIP, LoadBalancer, NodePort
+  selector:
+    app: test-deployment
+  ports:
+    - name: http
+      nodePort: 31000
+      port: 8080
+      protocol: TCP
+      targetPort: 3000  # pod에 실행중인 어플리케이션의 포트(노드 어플리케이션이 3000번 포트로 running중)
+    - name: https
+      nodePort: 31001
+      port: 443
+      protocol: TCP
+      targetPort: 3000 # pod에 실행중인 어플리케이션의 포트(노드 어플리케이션이 3000번 포트로 running중)

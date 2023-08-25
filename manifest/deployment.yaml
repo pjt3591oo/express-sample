@@ -33,12 +33,12 @@ spec:
     app: test-deployment
   ports:
     - name: http
-      nodePort: 31000
+      # nodePort: 31000
       port: 8080
       protocol: TCP
       targetPort: 3000  # pod에 실행중인 어플리케이션의 포트(노드 어플리케이션이 3000번 포트로 running중)
     - name: https
-      nodePort: 31001
+      # nodePort: 31001
       port: 443
       protocol: TCP
       targetPort: 3000 # pod에 실행중인 어플리케이션의 포트(노드 어플리케이션이 3000번 포트로 running중)

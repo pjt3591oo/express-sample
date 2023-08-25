@@ -5,7 +5,7 @@ metadata:
   labels:
     app: test-deployment  # deployment의 라벨
 spec:
-  replicas: 3
+  replicas: 2
   selector:
     matchLabels:
       app: test-deployment # replicaset이 관리할 pod 라벨
@@ -21,6 +21,7 @@ spec:
         - containerPort: 3000
       imagePullSecrets:
       - name: regcred
+
 ---
 apiVersion: v1
 kind: Service
